@@ -18,8 +18,9 @@
   </style>
 </head>
 <body>
-  <!-- ★ 이 부분에 GAS 웹 앱 URL을 넣으세요 (배포 시 주소 그대로 유지됨) -->
-  <iframe src="https://script.google.com/macros/s/AKfycbzwWHSa7-y6Z2OlTlLOdxqbXpmYt4xM_na0Ek7OwovWZ_mujxixaAlzWmLYAzMX8BlAZw/exec" allowfullscreen></iframe>
+  <!-- ★ 이 부분에 GAS 웹 앱 URL을 넣으세요 (배포 시 주소 그대로 유지됨)
+       allow="microphone" 필수: iframe 안에서 녹음(회의 기능)하려면 이 권한이 있어야 함 -->
+  <iframe src="https://script.google.com/macros/s/AKfycbzwWHSa7-y6Z2OlTlLOdxqbXpmYt4xM_na0Ek7OwovWZ_mujxixaAlzWmLYAzMX8BlAZw/exec" allow="microphone" allowfullscreen></iframe>
 
   <script>
     if ('serviceWorker' in navigator) {
