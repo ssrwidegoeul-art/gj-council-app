@@ -26,6 +26,35 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
+    /* ── 로그인 유지 ──
+       iframe(GAS 앱)의 저장소는 브라우저가 지울 수 있어서,
+       아이디/비밀번호는 이 페이지(래퍼)에 보관하고 앱 시작 때 다시 전달합니다. */
+    (function () {
+      var frame = document.querySelector('iframe');
+      function pushCreds() {
+        try {
+          var pin = localStorage.getItem('office-pin') || '';
+          var name = localStorage.getItem('office-name') || '';
+          if (pin || name) frame.contentWindow.postMessage({ type: 'office-creds', pin: pin, name: name }, '*');
+        } catch (e) {}
+      }
+      window.addEventListener('message', function (e) {
+        var d = e.data;
+        if (!d || typeof d !== 'object' || typeof d.type !== 'string') return;
+        if (d.type === 'office-creds') {
+          try {
+            if (d.pin) localStorage.setItem('office-pin', d.pin);
+            if (d.name) localStorage.setItem('office-name', d.name);
+          } catch (e2) {}
+        } else if (d.type === 'office-logout') {
+          try { localStorage.removeItem('office-pin'); localStorage.removeItem('office-name'); } catch (e3) {}
+        }
+      });
+      if (frame) {
+        frame.addEventListener('load', pushCreds);
+        if (frame.contentWindow) pushCreds();
+      }
+    })();
   </script>
 </body>
 </html>
