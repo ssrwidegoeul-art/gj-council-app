@@ -1,5 +1,5 @@
 // 최소 서비스 워커: 설치 가능(PWA) 요건 충족 + 아이콘 캐시
-const CACHE = 'office-v1';
+const CACHE = 'office-v2';
 self.addEventListener('install', e => { self.skipWaiting(); });
 self.addEventListener('activate', e => { e.waitUntil(clients.claim()); });
 self.addEventListener('fetch', e => {
